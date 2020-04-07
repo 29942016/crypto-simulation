@@ -4,12 +4,16 @@ from datetime import datetime
 import pickle
 
 def main():
-    _StartNewTransaction = 'Y'
-    while _StartNewTransaction == 'Y':
-        _StartNewTransaction = raw_input('Create new transaction？ (y/n) ').upper()
-        if _StartNewTransaction == 'Y':
+    _StartNewTransaction = 0
+    while _StartNewTransaction != 3:
+        print '=== Transaction Recording Client ===\n1) Create new transaction\n2) Display transaction history\n3) Exit'
+        _StartNewTransaction = int(raw_input('>> '))
+        os.system('clear')
+        if _StartNewTransaction == 1:
             _Transaction = CreateTransaction()
             SaveTransaction(_Transaction)
+        elif _StartNewTransaction == 2:
+            DisplayTransactions()
     else:
         print "Exiting application..."
 
@@ -22,7 +26,10 @@ def DisplayTransactions():
                 data.append(pickle.load(fd))
         except EOFError:
             pass
-
+    print '\n=== START OF TRANSACTIONS ==='
+    for transaction in data:
+        print transaction
+    print '=== END OF TRANSACTIONS ===\n'
 
 def CreateTransaction():
     _Recipient = raw_input('Enter recipient: ')
@@ -30,13 +37,16 @@ def CreateTransaction():
     _Amount = raw_input('Enter amount: ')
     _Timestamp = datetime.now()
     _tBlock = Transaction(_Recipient, _Sender, _Amount)
+    os.system('clear')
+    print "=== TRANSACTION CREATED ==="
     print "[{t}] from {s} to {r} of amount ${a}".format(t=_Timestamp, s=_Sender, r=_Recipient, a=_Amount)
+
+    print "\n"
     return _tBlock
 
 def SaveTransaction(transaction):
     _Path = "transactions.pkl"
     with open(_Path, 'a+') as fp:
         pickle.dump(transaction, fp)
-
 
 main()
