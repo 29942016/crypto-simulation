@@ -3,11 +3,12 @@ from Transaction import Transaction
 from datetime import datetime
 import pickle
 
+
 def main():
     _StartNewTransaction = 0
     while _StartNewTransaction != 3:
-        print '=== Transaction Recording Client ===\n1) Create new transaction\n2) Display transaction history\n3) Exit'
-        _StartNewTransaction = int(raw_input('>> '))
+        print('=== Transaction Recording Client ===\n1) Create new transaction\n2) Display transaction history\n3) Exit')
+        _StartNewTransaction = int(input('>> '))
         os.system('clear')
         if _StartNewTransaction == 1:
             _Transaction = CreateTransaction()
@@ -15,7 +16,8 @@ def main():
         elif _StartNewTransaction == 2:
             DisplayTransactions()
     else:
-        print "Exiting application..."
+        print("Exiting application...")
+
 
 def DisplayTransactions():
     _Path = 'transactions.pkl'
@@ -26,27 +28,31 @@ def DisplayTransactions():
                 data.append(pickle.load(fd))
         except EOFError:
             pass
-    print '\n=== START OF TRANSACTIONS ==='
+    print('\n=== START OF TRANSACTIONS ===')
     for transaction in data:
-        print transaction
-    print '=== END OF TRANSACTIONS ===\n'
+        print(transaction)
+    print('=== END OF TRANSACTIONS ===\n')
+
 
 def CreateTransaction():
-    _Recipient = raw_input('Enter recipient: ')
-    _Sender = raw_input('Enter sender: ')
-    _Amount = raw_input('Enter amount: ')
+    _Recipient = input('Enter recipient: ')
+    _Sender = input('Enter sender: ')
+    _Amount = input('Enter amount: ')
     _Timestamp = datetime.now()
-    _tBlock = Transaction(_Recipient, _Sender, _Amount)
+    _tBlock = Transaction(_Recipient, _Sender, _Amount, _Timestamp)
     os.system('clear')
-    print "=== TRANSACTION CREATED ==="
-    print "[{t}] from {s} to {r} of amount ${a}".format(t=_Timestamp, s=_Sender, r=_Recipient, a=_Amount)
+    print("=== TRANSACTION CREATED ===")
+    print("[{t}] from {s} to {r} of amount ${a}".format(
+        t=_Timestamp, s=_Sender, r=_Recipient, a=_Amount))
 
-    print "\n"
+    print("\n")
     return _tBlock
+
 
 def SaveTransaction(transaction):
     _Path = "transactions.pkl"
-    with open(_Path, 'a+') as fp:
+    with open(_Path, "ab+") as fp:
         pickle.dump(transaction, fp)
+
 
 main()
