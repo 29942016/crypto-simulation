@@ -1,5 +1,12 @@
 from datetime import datetime
 
+# Class for block objects.
+# Holds reference to a transaction's
+# data and the previous blocks hash.
+
+# Includes a self defined hash function
+# in order to make the Block objects hashable.
+
 
 class Block:
     def __init__(self, i, d, h, t):

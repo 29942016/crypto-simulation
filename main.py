@@ -18,6 +18,10 @@ def main():
     else:
         print("Exiting application...")
 
+# Reads all available transactions from the
+# transaction file and attempts to convert them
+# into transaction objects.
+
 
 def DisplayTransactions():
     _Path = 'transactions.pkl'
@@ -34,6 +38,10 @@ def DisplayTransactions():
     print('=== END OF TRANSACTIONS ===\n')
 
 
+# Generates a transaction object given a
+# recipient, sender and amount. Then notifies
+# the user.
+
 def CreateTransaction():
     _Recipient = input('Enter recipient: ')
     _Sender = input('Enter sender: ')
@@ -47,6 +55,9 @@ def CreateTransaction():
 
     print("\n")
     return _tBlock
+
+# Given a transaction object, save
+# it to the transaction file.
 
 
 def SaveTransaction(transaction):

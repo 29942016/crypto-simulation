@@ -1,6 +1,10 @@
 from datetime import datetime
 
 
+# Class for transaction objects.
+# Holds reference to a transaction's
+# recipient, sender, amount and a timestamp.
+
 class Transaction:
     def __init__(self, r, s, a, t):
         self.Recipient = r
